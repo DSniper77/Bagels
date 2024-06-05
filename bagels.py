@@ -1,3 +1,7 @@
+"""Bagels, a game programmed by Daniel Lovegrove, initially sourced from 'The Big Book of Small Python Projects' by Al Sweigart
+   A deductive logic game where you must guess a number based on clues.
+   Tags: short, game, puzzle"""
+
 import random
 
 DIGITS = 3
@@ -14,11 +18,14 @@ def main():
           For example, if the secret number is 248 and your guess was 843,
           my response would be Fermi Pico.'''.format(DIGITS, GUESSES))
     
+    # main game loop:
     while True:
+        # stores the secret number and confirms the quantity of guesses available
         secretNum = getSecretNum()
         print("I have thought of a number.")
         print("You have {} attempts to guess the number.".format(GUESSES))
 
+        # start of the guessing loop, confirming input is valid before continuing
         numGuesses = 1
         while numGuesses <= GUESSES:
             guess = ""
@@ -26,16 +33,19 @@ def main():
                 print("Guess #{}".format(numGuesses))
                 guess = input("> ")
             
+            # print out of clues based on last guess
             clues = getClues(guess, secretNum)
             print(clues)
             numGuesses += 1
 
+            # check for ending state, both pass and fail
             if guess == secretNum:
                 break
             if numGuesses > GUESSES:
                 print("You ran out of guesses!")
                 print("The answer was {}.".format(secretNum))
             
+        # check for another round of play, generous confirmation
         print("Do you want to play again? (yes or no)")
         if not input("> ").lower().startswith("y"):
             break
